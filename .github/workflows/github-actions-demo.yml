@@ -3,7 +3,7 @@ name: Actions Demo
 on:
   push:
     branches: main
-    paths-ignore: .github
+    paths-ignore: .github/**
   pull_request:
     branches: main
   schedule:
@@ -14,11 +14,18 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
+      
       - run: |
-          echo "TriggerEvent: "
-          echo "Branch: "
+          echo "TriggerEvent: ${{ github.event_name}}"
+          echo "Branch: ${{ github.ref}}"
           echo "Files"
-          ls
+
+      - uses: actions/checkout@v4
+
+      - name: List files
+        run: |
+          echo "listing files"
+          tree
       
       
   
